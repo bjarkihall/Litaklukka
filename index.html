@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="is">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Bjarki Hall">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Klukka sem sýnir hex-litagildi á forminu #hhmmss í bakgrunni.">
+	<title>Litaklukka</title>
+	<style>
+* {margin: 0; padding: 0; box-sizing: border-box;}
+body {
+	font: 16px/1em Arial, sans-serif;
+	color: white;
+	width: 100%; height: 100%;
+	overflow-x: hidden;
+}
+section {
+	display: block;
+	position: absolute;
+	top: 47%; left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+}
+h1 {font-size: 3.5em; margin: 1em 0;}
+p#hex {font-size: 4.5em; margin: 0.5em;}
+p#hex:hover span.colon {visibility: hidden;}
+span.r {color: red;}
+span.g {color: green;}
+span.b {color: blue;}
+@media only screen and (max-height: 200px) {h1, p#hex {font-size: 2.5em;}}
+@media only screen and (max-width: 400px), (max-device-width : 250px) {h1, p#hex {font-size: 2.5em; font-size: 17.5vw;}}
+	</style>
+</head>
+<body>
+	<section>
+		<h1>Klukkan er</h1>
+		<p id="hex"></p>
+	</section>
+	<script>
+function updateTime(){
+	var d = new Date()
+	var h = d.getHours();
+	var m = d.getMinutes();
+	var s = d.getSeconds();
+	if(h<=9) h = '0'+h;
+	if(m<=9) m = '0'+m;
+	if(s<=9) s = '0'+s;
+	var	c = '#'+h+m+s; //color/colon
+	document.getElementsByTagName("body")[0].style.background = c;
+	c = '<span class="colon">:</span>';
+	var str = '#<span class="r">'+h+'</span>'
+			+c+'<span class="g">'+m+'</span>'
+			+c+'<span class="b">'+s+'</span>';
+	document.getElementById("hex").innerHTML = str;
+	setTimeout(updateTime, 1000);
+}
+updateTime();
+	</script>
+</body>
+</html>
